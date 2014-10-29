@@ -43,7 +43,7 @@ public class RottenTomatoesWordVectorDataFetcher extends BaseDataFetcher {
         iter = new RottenTomatoesLabelAwareSentenceIterator();
 
         vec = new Word2Vec.Builder().iterate(iter).tokenizerFactory(factory)
-                .learningRate(1e-3).vocabCache(new InMemoryLookupCache(300))
+                .learningRate(1e-3)
                 .layerSize(300).windowSize(5).build();
         vec.fit();
 

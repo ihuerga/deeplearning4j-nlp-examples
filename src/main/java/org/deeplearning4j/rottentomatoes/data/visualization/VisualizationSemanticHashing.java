@@ -33,7 +33,7 @@ public class VisualizationSemanticHashing {
         SentenceIterator docIter = new CollectionSentenceIterator(new SentenceToPhraseMapper(new ClassPathResource("/train.tsv").getFile()).sentences());
         TokenizerFactory factory = new DefaultTokenizerFactory();
         Word2Vec  vec = new Word2Vec.Builder().iterate(docIter).tokenizerFactory(factory).batchSize(100000)
-                .learningRate(2.5e-2).vocabCache(new InMemoryLookupCache(100)).iterations(1)
+                .learningRate(2.5e-2).iterations(1)
                 .layerSize(100).windowSize(5).build();
         vec.fit();
 

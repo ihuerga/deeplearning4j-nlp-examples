@@ -37,7 +37,7 @@ public class Visualization {
                 .iterations(1).minWordFrequency(10)
                 .layerSize(100).windowSize(5).build();
         vec.fit();
-       
+
 
 
 

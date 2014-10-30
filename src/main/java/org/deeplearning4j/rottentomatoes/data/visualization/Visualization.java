@@ -25,13 +25,16 @@ public class Visualization {
 
 
     public static void main(String[] args) throws Exception {
-        InputStream is = new ClassPathResource("/train.tsv").getInputStream();
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File("train.tsv")));
-        IOUtils.copy(is,bos);
-        bos.flush();
-        bos.close();
-        is.close();
-        SentenceIterator docIter = new CollectionSentenceIterator(new SentenceToPhraseMapper(new ClassPathResource("/train.tsv").getFile()).sentences());
+        ClassPathResource r = new ClassPathResource("/train.tsv");
+        if(r.exists()) {
+            InputStream is = r.getInputStream();
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File("train.tsv")));
+            IOUtils.copy(is, bos);
+            bos.flush();
+            bos.close();
+            is.close();
+        }
+        SentenceIterator docIter = new CollectionSentenceIterator(new SentenceToPhraseMapper(new File("train.tsv")).sentences());
         TokenizerFactory factory = new DefaultTokenizerFactory();
         Word2Vec  vec = new Word2Vec.Builder().iterate(docIter)
                 .tokenizerFactory(factory).batchSize(1000)

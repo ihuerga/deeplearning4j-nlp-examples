@@ -52,11 +52,11 @@ public class Visualization {
 
 
 
-    /*    Tsne t = new Tsne.Builder()
+        Tsne t = new Tsne.Builder()
                 .setMaxIter(100).stopLyingIteration(20).build();
 
 
-        vec.getCache().plotVocab(t);*/
+        vec.getCache().plotVocab(t);
 
     }
 

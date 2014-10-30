@@ -37,21 +37,26 @@ public class Visualization {
         SentenceIterator docIter = new CollectionSentenceIterator(new SentenceToPhraseMapper(new File("train.tsv")).sentences());
         TokenizerFactory factory = new DefaultTokenizerFactory();
         Word2Vec  vec = new Word2Vec.Builder().iterate(docIter)
-                .tokenizerFactory(factory).batchSize(100)
-                .learningRate(2.5e-2)
+                .tokenizerFactory(factory).batchSize(10000)
+                .learningRate(2.5e-2).sampling(5).learningRateDecayWords(10000)
                 .iterations(3).minWordFrequency(1)
                 .layerSize(300).windowSize(5).build();
         vec.fit();
         FileUtils.writeLines(new File("vocab.csv"),vec.getCache().words());
 
 
+        String word = "amusing";
+        String otherWord = "turd";
+        System.out.println("Words nearest  " + word +  " " + vec.wordsNearest(word,10));
+        System.out.println("Words nearest  " + otherWord +  " " + vec.wordsNearest(otherWord,10));
 
 
-        Tsne t = new Tsne.Builder()
+
+    /*    Tsne t = new Tsne.Builder()
                 .setMaxIter(100).stopLyingIteration(20).build();
 
 
-        vec.getCache().plotVocab(t);
+        vec.getCache().plotVocab(t);*/
 
     }
 

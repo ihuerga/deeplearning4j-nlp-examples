@@ -37,10 +37,10 @@ public class Visualization {
         SentenceIterator docIter = new CollectionSentenceIterator(new SentenceToPhraseMapper(new File("train.tsv")).sentences());
         TokenizerFactory factory = new DefaultTokenizerFactory();
         Word2Vec  vec = new Word2Vec.Builder().iterate(docIter)
-                .tokenizerFactory(factory).batchSize(1000)
+                .tokenizerFactory(factory).batchSize(100)
                 .learningRate(2.5e-2)
                 .iterations(3).minWordFrequency(1)
-                .layerSize(100).windowSize(5).build();
+                .layerSize(300).windowSize(5).build();
         vec.fit();
         FileUtils.writeLines(new File("vocab.csv"),vec.getCache().words());
 

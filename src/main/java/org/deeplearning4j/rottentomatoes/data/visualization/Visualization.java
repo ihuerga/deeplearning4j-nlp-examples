@@ -21,7 +21,7 @@ public class Visualization {
         SentenceIterator docIter = new CollectionSentenceIterator(new SentenceToPhraseMapper(new ClassPathResource("/train.tsv").getFile()).sentences());
         TokenizerFactory factory = new DefaultTokenizerFactory();
         Word2Vec  vec = new Word2Vec.Builder().iterate(docIter)
-                .tokenizerFactory(factory).batchSize(100000)
+                .tokenizerFactory(factory).batchSize(1000)
                 .learningRate(2.5e-2)
                 .iterations(1).minWordFrequency(5)
                 .layerSize(300).windowSize(5).build();

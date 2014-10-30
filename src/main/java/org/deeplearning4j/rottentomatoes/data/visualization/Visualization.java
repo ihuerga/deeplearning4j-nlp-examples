@@ -2,6 +2,7 @@ package org.deeplearning4j.rottentomatoes.data.visualization;
 
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.plot.Tsne;
 import org.deeplearning4j.rottentomatoes.data.SentenceToPhraseMapper;
@@ -11,7 +12,10 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFac
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 
 /**
@@ -21,6 +25,12 @@ public class Visualization {
 
 
     public static void main(String[] args) throws Exception {
+        InputStream is = new ClassPathResource("/train.tsv").getInputStream();
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File("train.tsv")));
+        IOUtils.copy(is,bos);
+        bos.flush();
+        bos.close();
+        is.close();
         SentenceIterator docIter = new CollectionSentenceIterator(new SentenceToPhraseMapper(new ClassPathResource("/train.tsv").getFile()).sentences());
         TokenizerFactory factory = new DefaultTokenizerFactory();
         Word2Vec  vec = new Word2Vec.Builder().iterate(docIter)

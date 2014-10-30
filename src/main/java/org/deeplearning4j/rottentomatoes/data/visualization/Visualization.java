@@ -26,8 +26,8 @@ public class Visualization {
         Word2Vec  vec = new Word2Vec.Builder().iterate(docIter)
                 .tokenizerFactory(factory).batchSize(1000)
                 .learningRate(2.5e-2)
-                .iterations(1).minWordFrequency(5)
-                .layerSize(300).windowSize(5).build();
+                .iterations(3).minWordFrequency(1)
+                .layerSize(100).windowSize(5).build();
         vec.fit();
         FileUtils.writeLines(new File("vocab.csv"),vec.getCache().words());
 

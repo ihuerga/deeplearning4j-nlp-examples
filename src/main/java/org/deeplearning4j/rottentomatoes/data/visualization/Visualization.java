@@ -1,6 +1,7 @@
 package org.deeplearning4j.rottentomatoes.data.visualization;
 
 
+import org.apache.commons.io.FileUtils;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.plot.Tsne;
 import org.deeplearning4j.rottentomatoes.data.SentenceToPhraseMapper;
@@ -9,6 +10,8 @@ import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.springframework.core.io.ClassPathResource;
+
+import java.io.File;
 
 
 /**
@@ -26,7 +29,7 @@ public class Visualization {
                 .iterations(1).minWordFrequency(5)
                 .layerSize(300).windowSize(5).build();
         vec.fit();
-
+        FileUtils.writeLines(new File("vocab.csv"),vec.getCache().words());
 
 
 
